@@ -295,13 +295,13 @@ const TryOnApp = () => {
                 </p>
               </div>
 
-              <button
-                onClick={() => setStep(2)}
-                disabled={!dressUrl || !userImage}
-                className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                Continue to Preview
-              </button>
+                <button
+                  onClick={() => setStep(2)}
+                  disabled={!dressUrl || !userImage}
+                  className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Continue to Preview
+                </button>
             </motion.div>
           )}
 
