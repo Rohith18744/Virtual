@@ -33,15 +33,14 @@ const TryOnApp = () => {
         return;
       }
       
-      setUserImage(file);
-      
-      // Create preview
+      // Create preview and set the file
       const reader = new FileReader();
       reader.onload = (e) => {
-        setUserImage(prev => ({
-          ...prev,
+        // Create a new file object with preview
+        const fileWithPreview = Object.assign(file, {
           preview: e.target.result
-        }));
+        });
+        setUserImage(fileWithPreview);
       };
       reader.readAsDataURL(file);
     }
