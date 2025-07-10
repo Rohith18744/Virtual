@@ -12,7 +12,7 @@ import uuid
 from datetime import datetime
 import base64
 import io
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 from openai import OpenAI
 import json
 
