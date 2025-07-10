@@ -344,10 +344,10 @@ const TryOnApp = () => {
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-3">Your Photo</h3>
                   <div className="bg-slate-800 rounded-lg p-4">
-                    <div className="text-sm text-slate-400 mb-2">File: {userImage.name}</div>
+                    <div className="text-sm text-slate-400 mb-2">File: {userImage?.name}</div>
                     <div className="text-center">
                       <img
-                        src={userImage.preview}
+                        src={userImage?.preview}
                         alt="Your photo"
                         className="max-w-full max-h-64 object-contain rounded-lg mx-auto"
                       />
