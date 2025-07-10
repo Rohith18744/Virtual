@@ -97,12 +97,19 @@ def image_to_base64(image: Image.Image) -> str:
 async def generate_tryon_image(user_image: Image.Image, dress_image: Image.Image) -> str:
     """Generate try-on image using OpenAI API"""
     try:
-        # Convert images to bytes for OpenAI API
+        # Convert user image to bytes for OpenAI API with proper format
         user_img_bytes = io.BytesIO()
+        # Convert to RGB if needed and save as PNG
+        if user_image.mode in ('RGBA', 'LA', 'P'):
+            user_image = user_image.convert('RGB')
         user_image.save(user_img_bytes, format='PNG')
         user_img_bytes.seek(0)
         
+        # Convert dress image to bytes for OpenAI API with proper format
         dress_img_bytes = io.BytesIO()
+        # Convert to RGB if needed and save as PNG
+        if dress_image.mode in ('RGBA', 'LA', 'P'):
+            dress_image = dress_image.convert('RGB')
         dress_image.save(dress_img_bytes, format='PNG')
         dress_img_bytes.seek(0)
         
@@ -115,9 +122,20 @@ async def generate_tryon_image(user_image: Image.Image, dress_image: Image.Image
         """
         
         # Generate the try-on image using OpenAI's image edit API
+        # Create file-like objects with proper names for OpenAI
+        user_file = io.BytesIO()
+        user_image.save(user_file, format='PNG')
+        user_file.seek(0)
+        user_file.name = 'user_image.png'
+        
+        dress_file = io.BytesIO()
+        dress_image.save(dress_file, format='PNG')
+        dress_file.seek(0)
+        dress_file.name = 'dress_image.png'
+        
         result = openai_client.images.edit(
             model="gpt-image-1",
-            image=[user_img_bytes, dress_img_bytes],
+            image=[user_file, dress_file],
             prompt=prompt,
             size="1024x1536",  # Portrait format for try-on
             quality="high"
